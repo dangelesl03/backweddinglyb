@@ -1,11 +1,35 @@
 // Asegurar que dotenv se cargue primero si no se ha cargado ya
-if (!process.env.POSTGRES_URL && !process.env.DATABASE_URL && !process.env.POSTGRES_PRISMA_URL) {
-  try {
-    require('dotenv').config();
-  } catch (e) {
-    // dotenv puede no estar disponible, pero eso está bien si las variables ya están en el entorno
-  }
+try {
+  require('dotenv').config();
+} catch (e) {
+  // dotenv puede no estar disponible
 }
+
+// Homologar variables de entorno con prefijo wed2_ (minúscula o MAYÚSCULA)
+const prefix = 'wed2_';
+const variablesToPrefix = [
+  'POSTGRES_URL',
+  'DATABASE_URL',
+  'POSTGRES_PRISMA_URL',
+  'JWT_SECRET',
+  'PORT',
+  'FRONTEND_URL',
+  'NODE_ENV',
+  'POSTGRES_URL_ORIGINAL'
+];
+
+variablesToPrefix.forEach(varName => {
+  const prefixedLower = `${prefix}${varName}`;
+  const prefixedUpper = `${prefix.toUpperCase()}${varName}`;
+  
+  // Buscar valor con prefijo (prioridad minúscula, luego MAYÚSCULA)
+  const prefixedVal = process.env[prefixedLower] || process.env[prefixedUpper];
+  
+  if (prefixedVal) {
+    // Sobrescribir la variable base en process.env
+    process.env[varName] = prefixedVal;
+  }
+});
 
 // Asegurar que DATABASE_URL siempre sea un string válido
 const getDatabaseUrl = () => {

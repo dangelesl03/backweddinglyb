@@ -1,5 +1,6 @@
 // Cargar variables de entorno PRIMERO, antes de cualquier otra cosa
 require('dotenv').config();
+const config = require('./config');
 
 const express = require('express');
 const cors = require('cors');
@@ -11,7 +12,6 @@ const reportRoutes = require('./routes/reports');
 const categoryRoutes = require('./routes/categories');
 const importRoutes = require('./routes/import');
 const dedicationRoutes = require('./routes/dedications');
-const config = require('./config');
 
 const app = express();
 
