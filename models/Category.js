@@ -50,7 +50,7 @@ class Category {
     let paramIndex = 1;
 
     Object.keys(updateData).forEach(key => {
-      if (updateData[key] !== undefined) {
+      if (key !== 'id' && key !== '_id' && updateData[key] !== undefined) {
         const dbKey = key.replace(/([A-Z])/g, '_$1').toLowerCase();
         fields.push(`${dbKey} = $${paramIndex}`);
         values.push(updateData[key]);
