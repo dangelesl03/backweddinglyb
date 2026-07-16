@@ -35,8 +35,15 @@ class Event {
     const values = [];
     let paramIndex = 1;
 
+    const allowedColumns = [
+      'title', 'couple_names', 'coupleNames', 'wedding_date', 'weddingDate',
+      'location', 'address', 'dress_code', 'dressCode', 'dress_code_description',
+      'dressCodeDescription', 'banner_image_url', 'bannerImageUrl',
+      'additional_info', 'additionalInfo'
+    ];
+
     Object.keys(updateData).forEach(key => {
-      if (key !== 'id' && key !== '_id' && updateData[key] !== undefined) {
+      if (allowedColumns.includes(key) && updateData[key] !== undefined) {
         // Convertir camelCase a snake_case
         const dbKey = key.replace(/([A-Z])/g, '_$1').toLowerCase();
         fields.push(`${dbKey} = $${paramIndex}`);

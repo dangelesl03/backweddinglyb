@@ -83,8 +83,14 @@ class Gift {
     const values = [];
     let paramIndex = 1;
 
+    const allowedColumns = [
+      'name', 'description', 'price', 'currency', 'category', 'category_id',
+      'available', 'total', 'image_url', 'imageUrl', 'is_active', 'isActive',
+      'is_contributed', 'isContributed', 'gift_type', 'giftType'
+    ];
+
     Object.keys(updateData).forEach(key => {
-      if (key !== 'id' && key !== '_id' && key !== 'total_contributed' && updateData[key] !== undefined) {
+      if (allowedColumns.includes(key) && updateData[key] !== undefined) {
         const dbKey = key.replace(/([A-Z])/g, '_$1').toLowerCase();
         fields.push(`${dbKey} = $${paramIndex}`);
         values.push(updateData[key]);

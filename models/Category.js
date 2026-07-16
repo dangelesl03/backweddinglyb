@@ -49,8 +49,12 @@ class Category {
     const values = [];
     let paramIndex = 1;
 
+    const allowedColumns = [
+      'name', 'description', 'is_active', 'isActive'
+    ];
+
     Object.keys(updateData).forEach(key => {
-      if (key !== 'id' && key !== '_id' && updateData[key] !== undefined) {
+      if (allowedColumns.includes(key) && updateData[key] !== undefined) {
         const dbKey = key.replace(/([A-Z])/g, '_$1').toLowerCase();
         fields.push(`${dbKey} = $${paramIndex}`);
         values.push(updateData[key]);
