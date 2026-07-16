@@ -4,6 +4,7 @@ const { Pool } = require('pg');
 
 // Cargar variables de entorno de .env
 require('dotenv').config();
+require('../config');
 
 const originalUrl = process.env.POSTGRES_URL_ORIGINAL;
 const newUrl = process.env.POSTGRES_URL || process.env.DATABASE_URL;

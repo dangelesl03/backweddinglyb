@@ -15,31 +15,9 @@ const dedicationRoutes = require('./routes/dedications');
 
 const app = express();
 
-// Middleware CORS - Permitir solicitudes del frontend
-const allowedOrigins = [
-  'https://frontweddinglyb.vercel.app',
-  'https://nataliaydaniel2026.vercel.app',
-  'https://frontwedding-883s.vercel.app',
-  process.env.FRONTEND_URL
-].filter(Boolean); // Eliminar valores undefined/null
-
+// Middleware CORS - Permitir cualquier dominio (*)
 app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin) {
-      return callback(null, true);
-    }
-    
-    if (allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      if (process.env.NODE_ENV === 'development' && origin.includes('localhost')) {
-        callback(null, true);
-      } else {
-        callback(new Error('No permitido por CORS'));
-      }
-    }
-  },
-  credentials: true,
+  origin: '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
