@@ -13,11 +13,11 @@ const seedData = async () => {
     const adminExists = await User.findOne({ role: 'admin' });
     if (!adminExists) {
       await User.create({
-        username: 'natalia_daniel',
+        username: 'lucia_bruno',
         password: 'boda2026',
         role: 'admin'
       });
-      console.log('Usuario administrador creado: natalia_daniel / boda2026');
+      console.log('Usuario administrador creado: lucia_bruno / boda2026');
     } else {
       console.log('Usuario administrador ya existe');
     }
@@ -27,8 +27,8 @@ const seedData = async () => {
     if (!eventExists) {
       await Event.create({
         title: '¡Acompañanos a celebrar!',
-        coupleNames: 'Natalia & Daniel',
-        weddingDate: '2026-11-28',
+        coupleNames: 'Lucía & Bruno',
+        weddingDate: '2026-10-17',
         location: 'Lima, Perú',
         address: 'Por definir - Próximamente',
         dressCode: 'Elegante',

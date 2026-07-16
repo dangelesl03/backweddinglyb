@@ -21,8 +21,8 @@ const Event = require('./models/Event');
     // Crear el evento
     const event = await Event.create({
       title: '¡Acompañanos a celebrar!',
-      coupleNames: 'Natalia & Daniel',
-      weddingDate: '2026-03-28',
+      coupleNames: 'Lucía & Bruno',
+      weddingDate: '2026-10-17',
       location: 'Lima, Perú',
       address: 'Por definir - Próximamente',
       dressCode: 'Elegante',

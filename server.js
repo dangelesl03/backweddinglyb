@@ -10,12 +10,14 @@ const paymentRoutes = require('./routes/payments');
 const reportRoutes = require('./routes/reports');
 const categoryRoutes = require('./routes/categories');
 const importRoutes = require('./routes/import');
+const dedicationRoutes = require('./routes/dedications');
 const config = require('./config');
 
 const app = express();
 
 // Middleware CORS - Permitir solicitudes del frontend
 const allowedOrigins = [
+  'https://frontweddinglyb.vercel.app',
   'https://nataliaydaniel2026.vercel.app',
   'https://frontwedding-883s.vercel.app',
   process.env.FRONTEND_URL
@@ -61,6 +63,7 @@ app.use('/api/payments', paymentRoutes);
 app.use('/api/reports', reportRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/import', importRoutes);
+app.use('/api/dedications', dedicationRoutes);
 
 // Health check endpoint
 app.get('/health', (req, res) => {

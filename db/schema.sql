@@ -48,6 +48,7 @@ CREATE TABLE IF NOT EXISTS gifts (
     image_url TEXT,
     is_active BOOLEAN DEFAULT true,
     is_contributed BOOLEAN DEFAULT false,
+    gift_type VARCHAR(50) DEFAULT 'Pago total' CHECK (gift_type IN ('Ticket', 'Aporte libre', 'Pago total')),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -58,7 +59,19 @@ CREATE TABLE IF NOT EXISTS gift_contributions (
     gift_id INTEGER NOT NULL REFERENCES gifts(id) ON DELETE CASCADE,
     user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     amount DECIMAL(10, 2) NOT NULL CHECK (amount > 0),
+    receipt_file TEXT,
+    note TEXT,
     contributed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Tabla de dedicatorias
+CREATE TABLE IF NOT EXISTS dedications (
+    id SERIAL PRIMARY KEY,
+    message TEXT NOT NULL CHECK (LENGTH(message) <= 1000),
+    sender_name VARCHAR(255) NOT NULL,
+    is_approved BOOLEAN DEFAULT true,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Índices para mejorar rendimiento
@@ -90,4 +103,7 @@ CREATE TRIGGER update_gifts_updated_at BEFORE UPDATE ON gifts
     FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
 CREATE TRIGGER update_categories_updated_at BEFORE UPDATE ON categories
+    FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+CREATE TRIGGER update_dedications_updated_at BEFORE UPDATE ON dedications
     FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
